@@ -285,9 +285,9 @@ PRODUCT_COPY_FILES += \
 # Hardware Info
 include hardware/google/pixel/HardwareInfo/HardwareInfo.mk
 
-# AiAi Config
-PRODUCT_COPY_FILES += \
-    device/google/gs201/allowlist_com.google.android.as.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/allowlist_com.google.android.as.xml
+# AiAi Config: not LineageOS's allowlist_com.google.android.as.xml. Stock's
+# association rules for Android System Intelligence come with vendor/gms, and
+# stock no longer restricts Private Compute Services (com.google.android.as.oss).
 
 # Android Verified Boot
 PRODUCT_COPY_FILES += \
