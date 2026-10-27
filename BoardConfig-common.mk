@@ -151,6 +151,15 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 11796480000
 PRODUCT_FS_COMPRESSION := 1
 BOARD_FLASH_BLOCK_SIZE := 4096
 
+# ExpressiveOS: target-files takes the images the build made instead of making them
+# again, so they're the very images the fastboot zip flashes, and an incremental OTA
+# from a build applies on phones installed from its fastboot zip too. It takes only
+# images whose file system type is set to ext4 or erofs, so system.img's is set here.
+COPY_IMAGES_FOR_TARGET_FILES_ZIP := true
+
+# system.img
+BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
+
 # product.img
 BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_PRODUCT := product
