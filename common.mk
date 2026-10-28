@@ -297,6 +297,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     ANGLE
 
+# Artifact path requirement allowlist
+PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
+    system/priv-app/AppDataBackup/AppDataBackup.apk \
+    system/etc/permissions/privapp-permissions-appbackup.xml
+
 # Bluetooth
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth.prebuilt.xml \
