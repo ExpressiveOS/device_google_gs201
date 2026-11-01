@@ -29,11 +29,20 @@
         <version>2</version>
         <fqname>IComponentStore/default</fqname>
     </hal>
-    <hal format="aidl">
-        <name>android.hardware.security.keymint</name>
-        <version>3</version>
-        <fqname>IRemotelyProvisionedComponent/strongbox</fqname>
-    </hal>
+    <!--
+        IRemotelyProvisionedComponent/strongbox is not declared here.
+        build/make clamps ro.product.first_api_level to 32, and the Titan M2
+        keymint HAL (android.hardware.security.keymint-service.citadel) only
+        registers this instance when that property is 33 or higher. Declared
+        but never registered, it makes rkpdapp wait forever and every attested
+        key waits 10 s in keystore2. If the clamp is ever dropped, restore:
+            <hal format="aidl">
+                <name>android.hardware.security.keymint</name>
+                <version>3</version>
+                <fqname>IRemotelyProvisionedComponent/strongbox</fqname>
+            </hal>
+        otherwise the HAL's addService fails its CHECK and it aborts at boot.
+    -->
     <hal format="hidl">
         <name>android.hardware.soundtrigger</name>
         <transport>hwbinder</transport>
