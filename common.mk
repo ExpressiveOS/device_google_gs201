@@ -67,9 +67,7 @@ PRODUCT_PACKAGES += \
 	fstab.gs201-fips \
 	fstab.gs201-fips.vendor_ramdisk
 
-# Insmod config files
-PRODUCT_COPY_FILES += \
-	$(call find-copy-subdir-files,init.insmod.*.cfg,$(TARGET_KERNEL_DIR),$(TARGET_COPY_OUT_VENDOR_DLKM)/etc)
+# Insmod config files live in prebuilt vendor_dlkm.img
 
 # For creating dtbo image
 PRODUCT_HOST_PACKAGES += \
@@ -268,8 +266,8 @@ PRODUCT_BUILD_PVMFW_IMAGE := true
 # Set the environment variable to enable the Secretkeeper HAL service.
 SECRETKEEPER_ENABLED := true
 
-# Enable to build standalone vendor_kernel_boot image.
-PRODUCT_BUILD_VENDOR_KERNEL_BOOT_IMAGE := true
+# vendor_kernel_boot.img is prebuilt (extract-kernel-images.sh)
+PRODUCT_BUILD_VENDOR_KERNEL_BOOT_IMAGE := false
 
 # Project
 include hardware/google/pixel/common/pixel-common-device.mk
@@ -338,12 +336,12 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors-V2-ndk.vendor:64
 endif
 
-# Lineage Health
-include hardware/google/pixel/lineage_health/device.mk
+# ExpressiveOS Health
+include hardware/google/pixel/eos_health/device.mk
 
-$(call soong_config_set_bool,lineage_health,charging_control_supports_deadline,true)
-$(call soong_config_set_bool,lineage_health,charging_control_supports_limit,true)
-$(call soong_config_set_bool,lineage_health,charging_control_supports_toggle,false)
+$(call soong_config_set_bool,eos_health,charging_control_supports_deadline,true)
+$(call soong_config_set_bool,eos_health,charging_control_supports_limit,true)
+$(call soong_config_set_bool,eos_health,charging_control_supports_toggle,false)
 
 # Linker config
 PRODUCT_VENDOR_LINKER_CONFIG_FRAGMENTS += \
@@ -390,19 +388,12 @@ PRODUCT_PACKAGES += \
 
 ifneq ($(TARGET_IS_TABLET),true)
 PRODUCT_PACKAGES += \
-    LineageSdkOverlayGs201 \
     SettingsOverlayGs201
 endif
 
 PRODUCT_PACKAGES += \
-    FrameworkResOverlayLineageGs201 \
-    LineageSdkOverlayRestartGs201 \
     SettingsOverlayBatteryGs201 \
     SimpleDeviceConfigOverlayGs201
-
-# Parts
-PRODUCT_PACKAGES += \
-    GoogleParts
 
 # Properties
 TARGET_PRODUCT_PROP += device/google/gs201/product.prop
@@ -437,7 +428,7 @@ PRODUCT_COPY_FILES += \
 endif
 
 # Touch
-include hardware/google/pixel/touch/device.mk
+include hardware/google/pixel/eos_touch/device.mk
 
 # VINTF
 DEVICE_MANIFEST_FILE += \
