@@ -392,8 +392,7 @@ PRODUCT_PACKAGES += \
 endif
 
 PRODUCT_PACKAGES += \
-    SettingsOverlayBatteryGs201 \
-    SimpleDeviceConfigOverlayGs201
+    SettingsOverlayBatteryGs201
 
 # Properties
 TARGET_PRODUCT_PROP += device/google/gs201/product.prop
